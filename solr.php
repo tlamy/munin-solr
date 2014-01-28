@@ -9,7 +9,7 @@
 # In /etc/php5/cli/php.ini, set variables_order = "EGPCS"
 # (needed to override defaults for port, path and authentication)
 #
-# in /etc/munin/plugin-conf.d/munin-node, add 
+# in /etc/munin/plugin-conf.d/munin-node, add
 #   [solr*]
 #   env.port 8080
 #   env.path /solr
@@ -185,19 +185,19 @@ foreach( $cores as $internal=>$coreData) {
 	}
 
 	echo "\nmultigraph solr_handler_".$internal."\n";
-	foreach (array( 
-			"PingRequest"=>'org.apache.solr.handler.PingRequestHandler', 
-			"UpdateRequest"=>'org.apache.solr.handler.UpdateRequestHandler', 
-			"JsonUpdateRequest"=>'org.apache.solr.handler.JsonUpdateRequestHandler', 
-			"Replication"=>'org.apache.solr.handler.ReplicationHandler', 
-			"DataImport"=>'org.apache.solr.handler.dataimport.DataImportHandler', 
-			"DumpRequest"=>'org.apache.solr.handler.DumpRequestHandler', 
+	foreach (array(
+			"PingRequest"=>'org.apache.solr.handler.PingRequestHandler',
+			"UpdateRequest"=>'org.apache.solr.handler.UpdateRequestHandler',
+			"JsonUpdateRequest"=>'org.apache.solr.handler.JsonUpdateRequestHandler',
+			"Replication"=>'org.apache.solr.handler.ReplicationHandler',
+			"DataImport"=>'org.apache.solr.handler.dataimport.DataImportHandler',
+			"DumpRequest"=>'org.apache.solr.handler.DumpRequestHandler',
 			"Search"=>'org.apache.solr.handler.component.SearchHandler') as $handler=>$class) {
 		// echo "'".implode("', '", array_keys($coreData2['QUERYHANDLER']))."'\n"; exit;
 		if(isset($coreData2['QUERYHANDLER'][$class]) && isset($coreData2['QUERYHANDLER'][$class]['stats']["totalTime"])) {
 			echo $handler.".value	".$coreData2['QUERYHANDLER'][$class]['stats']["totalTime"]."\n";
 		} else if($handler == "DataImport") {
-			for($i=0; $i < count($coreData2['QUERYHANDLER'][$class]['stats']); $i += 2) {
+			for($i=0; isset($coreData2['QUERYHANDLER'][$class]) && $i < count($coreData2['QUERYHANDLER'][$class]['stats']); $i += 2) {
 				if($coreData2['QUERYHANDLER'][$class]['stats'][$i] == "totalTime") {
 					echo $handler.".value	".$coreData2['QUERYHANDLER'][$class]['stats'][$i+1]."\n";
 				}
