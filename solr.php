@@ -195,11 +195,11 @@ foreach( $cores as $internal=>$coreData) {
 			"Search"=>'org.apache.solr.handler.component.SearchHandler') as $handler=>$class) {
 		// echo "'".implode("', '", array_keys($coreData2['QUERYHANDLER']))."'\n"; exit;
 		if(isset($coreData2['QUERYHANDLER'][$class]) && isset($coreData2['QUERYHANDLER'][$class]['stats']["totalTime"])) {
-			echo $handler.".value	".$coreData2['QUERYHANDLER'][$class]['stats']["totalTime"]."\n";
+			echo $handler.".value	".(int)$coreData2['QUERYHANDLER'][$class]['stats']["totalTime"]."\n";
 		} else if($handler == "DataImport") {
 			for($i=0; isset($coreData2['QUERYHANDLER'][$class]) && $i < count($coreData2['QUERYHANDLER'][$class]['stats']); $i += 2) {
 				if($coreData2['QUERYHANDLER'][$class]['stats'][$i] == "totalTime") {
-					echo $handler.".value	".$coreData2['QUERYHANDLER'][$class]['stats'][$i+1]."\n";
+					echo $handler.".value	".(int)$coreData2['QUERYHANDLER'][$class]['stats'][$i+1]."\n";
 				}
 			}
 		}
